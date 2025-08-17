@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Step 1: Get the ID of the "AT Translated Set 2 keyboard"
+DEVICE_NAME="AT Translated Set 2 keyboard"
+DEVICE_ID=$(xinput list | grep "$DEVICE_NAME" | grep -o 'id=[0-9]*' | cut -d= -f2)
+
+# Step 2: Check if the device ID was found
+if [ -n "$DEVICE_ID" ]; then
+    echo "Disabling '$DEVICE_NAME' (id=$DEVICE_ID)..."
+    xinput disable "$DEVICE_ID"
+    echo "Device disabled."
+else
+    echo "Device '$DEVICE_NAME' not found."
+    exit 1
+fi
